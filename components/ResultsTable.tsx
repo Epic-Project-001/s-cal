@@ -4,6 +4,8 @@ import { Button } from "./ui/button";
 import { RiPrinterLine, RiSendPlaneFill } from "react-icons/ri";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
+import domtoimage from "dom-to-image-more";
+import { toast } from "sonner";
 
 interface Data {
   name: string;
@@ -36,10 +38,26 @@ export default function ResultsTable() {
 
   const reactToPrintFn = useReactToPrint({ contentRef: tableContainerRef });
 
+  const handleDownload = async () => {
+    if (!tableContainerRef.current) return;
+    const dataUrl = await domtoimage.toPng(tableContainerRef.current);
+    const link = document.createElement("a");
+    link.download = "screenshot.png";
+    link.href = dataUrl;
+    link.click();
+    toast.success("Screenshot downloaded successfully");
+    window.location.href =
+      "mailto:someone@example.com?subject=See attached screenshot";
+  };
+
   return (
     <div className="flex-1">
-      <div className="flex justify-end gap-2 px-15">
-        <Button variant="secondary" className="text-[#2E191466] w-[127px]">
+      <div className="flex justify-end gap-2 px-4 lg:px-6 xl:px-15">
+        <Button
+          onClick={handleDownload}
+          variant="secondary"
+          className="text-[#2E191466] w-[127px]"
+        >
           <RiSendPlaneFill size={14} className="text-[#A49896]" />
           Email
         </Button>
@@ -53,7 +71,10 @@ export default function ResultsTable() {
         </Button>
       </div>
 
-      <div ref={tableContainerRef} className="overflow-x-auto px-15 py-10">
+      <div
+        ref={tableContainerRef}
+        className="overflow-x-auto px-4 lg:px-6 xl:px-15 py-10"
+      >
         <table className="w-full table-fixed overflow-x-auto border-collapse divide-y divide-[#6E504933]">
           <thead>
             <tr>

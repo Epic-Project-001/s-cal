@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { Toaster } from "@/components/ui/sonner";
 
 const jakartaSans = Plus_Jakarta_Sans({
   variable: "--font-geist-sans",
@@ -22,8 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${jakartaSans.variable} antialiased min-h-screen flex flex-col py-15`}
+        className={`${jakartaSans.variable} antialiased min-h-screen flex flex-col py-4 lg:py-6 xl:py-15`}
       >
+        <Toaster />
         <Header />
         <main className="grow flex flex-col">{children}</main>
         <Footer />
