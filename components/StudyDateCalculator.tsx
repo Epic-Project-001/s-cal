@@ -19,10 +19,16 @@ import {
 import { useForm } from "react-hook-form";
 import { calculatorSchema, CalculatorSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DateInput } from "./Input/DateInput";
 
 export default function StudyDateCalculator() {
   const form = useForm<CalculatorSchema>({
     resolver: zodResolver(calculatorSchema),
+    defaultValues: {
+      date: "",
+      cohort: "",
+      id: "",
+    },
   });
 
   const onSubmit = form.handleSubmit((data) => {
@@ -30,7 +36,7 @@ export default function StudyDateCalculator() {
   });
 
   return (
-    <div className="max-w-[431px] mx-auto w-full flex flex-col items-center">
+    <div className="max-w-[431px] mx-auto w-full flex my-20 flex-col items-center">
       <h1 className="font-bold text-[28px]">Study date calculator</h1>
       <p>Enter the starting date and study cohort below</p>
       <Form {...form}>
@@ -41,10 +47,10 @@ export default function StudyDateCalculator() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input
-                    {...field}
-                    type="date"
-                    className="w-full bg-[#723C3117] border-none"
+                  <DateInput
+                    date={field.value ? new Date(field.value) : undefined}
+                    setDate={field.onChange}
+                    className="bg-[#723C3117] border-none"
                   />
                 </FormControl>
                 <FormMessage />
@@ -70,7 +76,6 @@ export default function StudyDateCalculator() {
                     <SelectItem value="2">Cohort 2</SelectItem>
                     <SelectItem value="3">Cohort 3</SelectItem>
                   </SelectContent>
-
                   <FormMessage />
                 </Select>
               </FormItem>

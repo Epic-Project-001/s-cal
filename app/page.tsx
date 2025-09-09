@@ -1,11 +1,11 @@
 import Calculator from "@/components/StudyDateCalculator";
-import Results from "@/components/Results";
+import ResultsTable from "@/components/ResultsTable";
 
 export default function Home() {
   return (
     <div className="grow flex flex-col">
       <Calculator />
-      <Results />
+      <ResultsTable />
     </div>
   );
 }
