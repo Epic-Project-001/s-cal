@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { RiPrinterLine, RiSendPlaneFill } from "react-icons/ri";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
-import domtoimage from "dom-to-image-more";
+import html2canvas from "html2canvas";
 import { toast } from "sonner";
 
 interface Data {
@@ -40,10 +40,11 @@ export default function ResultsTable() {
 
   const handleDownload = async () => {
     if (!tableContainerRef.current) return;
-    const dataUrl = await domtoimage.toPng(tableContainerRef.current);
+    const canvas = await html2canvas(tableContainerRef.current, { scale: 2 });
+    const imageUrl = canvas.toDataURL("image/png");
     const link = document.createElement("a");
     link.download = "screenshot.png";
-    link.href = dataUrl;
+    link.href = imageUrl;
     link.click();
     toast.success("Screenshot downloaded successfully");
     window.location.href =
