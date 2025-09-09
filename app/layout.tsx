@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${jakartaSans.variable} antialiased min-h-screen flex flex-col p-15`}
+        className={`${jakartaSans.variable} antialiased min-h-screen flex flex-col py-15`}
       >
         <Header />
         <main className="grow flex flex-col">{children}</main>
