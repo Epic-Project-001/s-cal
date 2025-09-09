@@ -36,7 +36,7 @@ export default function StudyDateCalculator() {
   });
 
   return (
-    <div className="mx-auto max-w-[431px] px-4 w-full flex my-20 flex-col items-center">
+    <div className="mx-auto max-w-[431px] px-4 w-full flex my-10 lg:my-20 flex-col items-center">
       <h1 className="font-bold text-[28px]">Study date calculator</h1>
       <p>Enter the starting date and study cohort below</p>
       <Form {...form}>
