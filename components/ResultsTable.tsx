@@ -74,7 +74,7 @@ export default function ResultsTable() {
 
       <div
         ref={tableContainerRef}
-        className="overflow-x-auto px-4 lg:px-6 xl:px-15 py-10"
+        className="overflow-x-auto px-4 lg:px-6 xl:px-15 py-6 lg:py-10"
       >
         <table className="w-full table-fixed overflow-x-auto border-collapse divide-y divide-[#6E504933]">
           <thead>

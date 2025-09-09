@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${jakartaSans.variable} antialiased min-h-screen flex flex-col py-4 lg:py-6 xl:py-15`}
+        className={`${jakartaSans.variable} antialiased min-h-screen flex flex-col py-6 xl:py-15`}
       >
         <Toaster />
         <Header />
