@@ -79,8 +79,8 @@
 }
 
 .dark {
-  --background: rgb(10, 10, 10);
-  --foreground: rgb(250, 250, 250);
+  --background: #0d0402;
+  --foreground: #e4dad7;
   --card: rgb(23, 23, 23);
   --card-foreground: rgb(250, 250, 250);
   --popover: rgb(23, 23, 23);
@@ -118,5 +118,11 @@
   }
   body {
     @apply bg-background text-foreground text-[.9375rem];
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }

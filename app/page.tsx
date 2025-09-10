@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CalculatorSchema, calculatorSchema } from "@/lib/validation";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
+import ThemeButton from "@/components/ThemeButton";
 
 export default function Home() {
   const form = useForm<CalculatorSchema>({
@@ -45,6 +46,7 @@ export default function Home() {
         ref={containerRef}
         className="min-h-screen p-4 lg:py-6 xl:p-15 flex flex-col"
       >
+        <ThemeButton />
         <Header />
         <StudyDateCalculator />
         <ResultsTable onEmail={handleEmail} onPrint={reactToPrint} />

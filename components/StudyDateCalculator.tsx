@@ -79,6 +79,7 @@ export default function StudyDateCalculator() {
               <FormControl>
                 <Input
                   {...field}
+                  type="number"
                   placeholder="Participant ID (optional)"
                   className="bg-[#723C3117] border-none"
                 />

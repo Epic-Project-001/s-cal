@@ -1,14 +1,6 @@
-import React from "react";
-import { Button } from "./ui/button";
-import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
-
 export default function Header() {
-  const { theme, setTheme } = useTheme();
-
-  console.log(theme);
   return (
-    <header className="relative">
+    <header>
       <svg
         width="200"
         height="36"
@@ -70,23 +62,6 @@ export default function Header() {
           </clipPath>
         </defs>
       </svg>
-
-      {theme && (
-        <Button
-          type="button"
-          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-          variant="ghost"
-          size="icon"
-          className="absolute rounded-full top-1/2 -translate-y-1/2 right-4"
-          title={theme === "light" ? "Dark mode" : "Light mode"}
-        >
-          {theme === "light" ? (
-            <Moon className="size-6" fill="black" />
-          ) : (
-            <Sun className="size-6" fill="#FFD700" />
-          )}
-        </Button>
-      )}
     </header>
   );
 }
