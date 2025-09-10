@@ -37,7 +37,7 @@ export const tableData: TableData = {
     ),
   ],
   follow_up: [
-    ...Array.from({ length: 11 }, (_, index): TableRow => {
+    ...Array.from({ length: 5 }, (_, index): TableRow => {
       const isWeekTwo = index === 0;
       return {
         interval: isWeekTwo ? "Week 2" : `Month ${index}`,
