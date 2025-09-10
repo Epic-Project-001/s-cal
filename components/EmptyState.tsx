@@ -19,7 +19,8 @@ export default function EmptyState() {
         <rect x="20" y="56" width="40" height="4" rx="1" fill="#723C3133" />
       </svg>
       <p className="text-[#281D1B] dark:text-[#E4DAD7] text-sm">
-        Please select a cohort and date to view the results
+        Please select a date and cohort, and click the calculate button to view
+        the results
       </p>
     </div>
   );
