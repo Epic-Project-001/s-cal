@@ -126,7 +126,7 @@ export const tableData: TableData = {
       allowed_interval_visit: 7,
     },
     {
-      interval: "Month6",
+      interval: "Month 6",
       planned_visit_interval: 168,
       allowed_interval_visit: 7,
     },
