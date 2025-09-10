@@ -22,13 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${jakartaSans.variable} antialiased min-h-screen flex flex-col py-6 xl:py-15`}
-      >
+      <body className={`${jakartaSans.variable} antialiased`}>
         <Toaster />
-        <Header />
-        <main className="grow flex flex-col">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <header className="px-4 lg:px-6 xl:px-15">
+    <header>
       <svg
         width="200"
         height="36"

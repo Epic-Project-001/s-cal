@@ -3,43 +3,34 @@
 import { Button } from "./ui/button";
 import { RiPrinterLine, RiSendPlaneFill } from "react-icons/ri";
 import { useRef } from "react";
+import { tableData } from "@/lib/data/tableData";
+import { CalculatorSchema } from "@/lib/validation";
+import { useFormContext } from "react-hook-form";
+import { addDays, format, subDays } from "date-fns";
 
 interface ResultTableProps {
   onPrint: () => void;
   onEmail: () => void;
 }
-interface Data {
-  name: string;
-  count: string;
-  date: string;
-  window: string;
+
+const tableHeaders: string[] = ["Vist name", "Number", "Date", "Visit Window"];
+
+const formatDate = (date: Date) => format(date, "dd MMM yyyy");
+
+function TableCell({ children }: { children: React.ReactNode }) {
+  return <td className="py-2 text-[#281D1B]">{children}</td>;
 }
-
-interface TableHeader {
-  label: string;
-  key: keyof Data;
-}
-
-const data: Data[] = Array.from({ length: 10 }, (_, index) => ({
-  name: "Screening",
-  count: `Visit ${index + 1}`,
-  date: "2021-01-01",
-  window: "01 Jan 2025 to 05 Jan 2025",
-}));
-
-const tableHeaders: TableHeader[] = [
-  { label: "Vist name", key: "name" },
-  { label: "Visit", key: "count" },
-  { label: "Date", key: "date" },
-  { label: "Visit Window", key: "window" },
-];
 
 export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
+  const form = useFormContext<CalculatorSchema>();
   const tableContainerRef = useRef<HTMLTableElement>(null);
+
+  const cohort = form.watch("cohort") as Cohort;
+  const date = form.watch("date");
 
   return (
     <div className="flex-1">
-      <div className="flex justify-end gap-2 px-4 lg:px-6 xl:px-15">
+      <div className="flex justify-end gap-2">
         <Button
           onClick={onEmail}
           variant="secondary"
@@ -53,34 +44,43 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
           Print
         </Button>
       </div>
-
-      <div
-        ref={tableContainerRef}
-        className="overflow-x-auto px-4 lg:px-6 xl:px-15 py-6 lg:py-10"
-      >
+      <div ref={tableContainerRef} className="overflow-x-auto py-6 lg:py-10">
         <table className="w-full table-fixed overflow-x-auto border-collapse divide-y divide-[#6E504933]">
           <thead>
             <tr>
-              {tableHeaders.map((header) => (
+              {tableHeaders.map((item) => (
                 <th
-                  key={header.key}
+                  key={item}
                   className="font-normal py-2 text-left text-[13px] text-[#2E19149E]"
                 >
-                  {header.label}
+                  {item}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody className="divide-y divide-[#6E504933]">
-            {data.map((item, index) => (
-              <tr key={item.name + index}>
-                {tableHeaders.map((header) => (
-                  <td className="py-4 text-[#281D1B]" key={header.key}>
-                    {item[header.key]}
-                  </td>
-                ))}
-              </tr>
-            ))}
+            {cohort &&
+              form.formState.isSubmitSuccessful &&
+              tableData[cohort].map((item, index) => {
+                const visitDate = addDays(date, item.planned_visit_interval);
+                const visitWindow =
+                  typeof item.allowed_interval_visit === "number"
+                    ? `${formatDate(
+                        subDays(visitDate, item.allowed_interval_visit)
+                      )} to ${formatDate(
+                        addDays(visitDate, item.allowed_interval_visit)
+                      )}`
+                    : item.allowed_interval_visit;
+
+                return (
+                  <tr key={item.interval}>
+                    <TableCell>{item.interval}</TableCell>
+                    <TableCell>Visit {index + 1}</TableCell>
+                    <TableCell>{`${formatDate(visitDate)}`}</TableCell>
+                    <TableCell>{visitWindow}</TableCell>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>

@@ -1,13 +1,29 @@
 "use client";
 
-import Calculator from "@/components/StudyDateCalculator";
+import StudyDateCalculator from "@/components/StudyDateCalculator";
 import ResultsTable from "@/components/ResultsTable";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import { toast } from "sonner";
 import { useRef } from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CalculatorSchema, calculatorSchema } from "@/lib/validation";
+import { useForm } from "react-hook-form";
+import { Form } from "@/components/ui/form";
+import { cohortOptions } from "@/lib/data/cohortOptions";
 
 export default function Home() {
+  const form = useForm<CalculatorSchema>({
+    resolver: zodResolver(calculatorSchema),
+    defaultValues: {
+      date: "",
+      cohort: cohortOptions[0].value,
+      id: "",
+    },
+  });
+
   const containerRef = useRef<HTMLDivElement>(null);
   const reactToPrint = useReactToPrint({ contentRef: containerRef });
 
@@ -25,9 +41,16 @@ export default function Home() {
   };
 
   return (
-    <div ref={containerRef} className="grow flex flex-col">
-      <Calculator />
-      <ResultsTable onEmail={handleEmail} onPrint={reactToPrint} />
-    </div>
+    <Form {...form}>
+      <div
+        ref={containerRef}
+        className="min-h-screen p-4 lg:py-6 xl:p-15 flex flex-col"
+      >
+        <Header />
+        <StudyDateCalculator />
+        <ResultsTable onEmail={handleEmail} onPrint={reactToPrint} />
+        <Footer />
+      </div>
+    </Form>
   );
 }
