@@ -20,7 +20,7 @@ const formatDate = (date: Date) => format(date, "dd MMM yyyy");
 
 function TableCell({ children }: { children: React.ReactNode }) {
   return (
-    <td className="py-2 text-[#281D1B] dark:text-[#E4DAD7]">{children}</td>
+    <td className="py-2 pr-2 text-[#281D1B] dark:text-[#E4DAD7]">{children}</td>
   );
 }
 
@@ -57,7 +57,7 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
               {tableHeaders.map((item) => (
                 <th
                   key={item}
-                  className="font-normal py-2 text-left text-[13px] text-[#2E19149E] dark:text-[#EBD5D19E]"
+                  className="font-normal pr-2 py-2 text-left text-[13px] text-[#2E19149E] dark:text-[#EBD5D19E]"
                 >
                   {item}
                 </th>
