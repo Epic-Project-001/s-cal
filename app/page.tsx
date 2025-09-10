@@ -25,7 +25,18 @@ export default function Home() {
   });
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const reactToPrint = useReactToPrint({ contentRef: containerRef });
+  const reactToPrint = useReactToPrint({
+    contentRef: containerRef,
+    pageStyle: `
+    @page {
+      margin: 15mm;
+    }
+    body {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  `,
+  });
 
   const handleEmail = async () => {
     if (!containerRef.current) return;
@@ -41,17 +52,16 @@ export default function Home() {
   };
 
   return (
-    <Form {...form}>
-      <div
-        ref={containerRef}
-        className="min-h-screen p-4 lg:py-6 xl:p-15 flex flex-col"
-      >
-        <ThemeButton />
-        <Header />
-        <StudyDateCalculator />
-        <ResultsTable onEmail={handleEmail} onPrint={reactToPrint} />
-        <Footer />
-      </div>
-    </Form>
+    <>
+      <ThemeButton />
+      <Form {...form}>
+        <div ref={containerRef} className="flex-1 flex flex-col">
+          <Header />
+          <StudyDateCalculator />
+          <ResultsTable onEmail={handleEmail} onPrint={reactToPrint} />
+          <Footer />
+        </div>
+      </Form>
+    </>
   );
 }

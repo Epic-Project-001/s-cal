@@ -21,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${jakartaSans.variable} antialiased`}>
+      <body
+        className={`${jakartaSans.variable} antialiased min-h-screen px-4 py-6 lg:py-6 xl:p-15 flex flex-col`}
+      >
         <ThemeProvider>
           <Toaster />
           {children}
