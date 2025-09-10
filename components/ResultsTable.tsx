@@ -3,10 +3,11 @@
 import { Button } from "./ui/button";
 import { RiPrinterLine, RiSendPlaneFill } from "react-icons/ri";
 import { useRef } from "react";
-import { useReactToPrint } from "react-to-print";
-import html2canvas from "html2canvas";
-import { toast } from "sonner";
 
+interface ResultTableProps {
+  onPrint: () => void;
+  onEmail: () => void;
+}
 interface Data {
   name: string;
   count: string;
@@ -33,40 +34,21 @@ const tableHeaders: TableHeader[] = [
   { label: "Visit Window", key: "window" },
 ];
 
-export default function ResultsTable() {
+export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
   const tableContainerRef = useRef<HTMLTableElement>(null);
-
-  const reactToPrintFn = useReactToPrint({ contentRef: tableContainerRef });
-
-  const handleDownload = async () => {
-    if (!tableContainerRef.current) return;
-    const canvas = await html2canvas(tableContainerRef.current, { scale: 2 });
-    const imageUrl = canvas.toDataURL("image/png");
-    const link = document.createElement("a");
-    link.download = "screenshot.png";
-    link.href = imageUrl;
-    link.click();
-    toast.success("Screenshot downloaded successfully");
-    window.location.href =
-      "mailto:someone@example.com?subject=See attached screenshot";
-  };
 
   return (
     <div className="flex-1">
       <div className="flex justify-end gap-2 px-4 lg:px-6 xl:px-15">
         <Button
-          onClick={handleDownload}
+          onClick={onEmail}
           variant="secondary"
           className="text-[#2E191466] w-[127px]"
         >
           <RiSendPlaneFill size={14} className="text-[#A49896]" />
           Email
         </Button>
-        <Button
-          variant="destructive"
-          className="w-[127px]"
-          onClick={reactToPrintFn}
-        >
+        <Button variant="destructive" className="w-[127px]" onClick={onPrint}>
           <RiPrinterLine size={14} />
           Print
         </Button>
