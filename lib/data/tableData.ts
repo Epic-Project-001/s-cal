@@ -1,15 +1,3 @@
-function interventionSequence(n: number) {
-  if (n === 1) return 14;
-  if (n === 2) return 28;
-  if (n === 3) return 56;
-  return 84 * (n - 3);
-}
-
-function weeklySequence(n: number) {
-  if (n < 10) return 7 * n;
-  return 84;
-}
-
 export const tableData: TableData = {
   randomized_intervention: [
     {
@@ -17,33 +5,130 @@ export const tableData: TableData = {
       planned_visit_interval: 0,
       allowed_interval_visit: "N/A",
     },
-    ...Array.from({ length: 7 }, (_, index): TableRow => {
-      const isWeekTwo = index === 0;
-      return {
-        interval: `${isWeekTwo ? "Week 2" : `Month ${index}`} `,
-        planned_visit_interval: interventionSequence(index + 1),
-        allowed_interval_visit: isWeekTwo ? 2 : 7,
-      };
-    }),
+
+    {
+      interval: "Week 2",
+      planned_visit_interval: 14,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Month 1",
+      planned_visit_interval: 28,
+      allowed_interval_visit: 7,
+    },
+    {
+      interval: "Month 2",
+      planned_visit_interval: 56,
+      allowed_interval_visit: 7,
+    },
+    {
+      interval: "Month 3",
+      planned_visit_interval: 84,
+      allowed_interval_visit: 7,
+    },
+    {
+      interval: "Month 6",
+      planned_visit_interval: 168,
+      allowed_interval_visit: 7,
+    },
+    {
+      interval: "Month 9",
+      planned_visit_interval: 252,
+      allowed_interval_visit: 7,
+    },
+    {
+      interval: "Month 12",
+      planned_visit_interval: 336,
+      allowed_interval_visit: 7,
+    },
+    {
+      interval: "Month 15",
+      planned_visit_interval: 420,
+      allowed_interval_visit: 7,
+    },
   ],
   ati: [
-    ...Array.from(
-      { length: 11 },
-      (_, index): TableRow => ({
-        interval: `Week ${index === 10 ? 12 : index + 1}`,
-        planned_visit_interval: weeklySequence(index + 1),
-        allowed_interval_visit: 2,
-      })
-    ),
+    {
+      interval: "Week 1",
+      planned_visit_interval: 7,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Week 2",
+      planned_visit_interval: 14,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Week 3",
+      planned_visit_interval: 21,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Week 4",
+      planned_visit_interval: 28,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Week 5",
+      planned_visit_interval: 35,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Week 6",
+      planned_visit_interval: 42,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Week 7",
+      planned_visit_interval: 49,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Week 8",
+      planned_visit_interval: 56,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Week 9",
+      planned_visit_interval: 63,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Week 10",
+      planned_visit_interval: 70,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Week 12",
+      planned_visit_interval: 84,
+      allowed_interval_visit: 2,
+    },
   ],
   follow_up: [
-    ...Array.from({ length: 5 }, (_, index): TableRow => {
-      const isWeekTwo = index === 0;
-      return {
-        interval: isWeekTwo ? "Week 2" : `Month ${index}`,
-        planned_visit_interval: interventionSequence(index + 1),
-        allowed_interval_visit: isWeekTwo ? 2 : 7,
-      };
-    }),
+    {
+      interval: "Week 2",
+      planned_visit_interval: 14,
+      allowed_interval_visit: 2,
+    },
+    {
+      interval: "Month 1",
+      planned_visit_interval: 28,
+      allowed_interval_visit: 7,
+    },
+    {
+      interval: "Month 2",
+      planned_visit_interval: 56,
+      allowed_interval_visit: 7,
+    },
+    {
+      interval: "Month 3",
+      planned_visit_interval: 84,
+      allowed_interval_visit: 7,
+    },
+    {
+      interval: "Month6",
+      planned_visit_interval: 168,
+      allowed_interval_visit: 7,
+    },
   ],
 };
