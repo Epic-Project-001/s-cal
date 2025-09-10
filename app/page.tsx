@@ -12,14 +12,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CalculatorSchema, calculatorSchema } from "@/lib/validation";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
-import { cohortOptions } from "@/lib/data/cohortOptions";
 
 export default function Home() {
   const form = useForm<CalculatorSchema>({
     resolver: zodResolver(calculatorSchema),
     defaultValues: {
       date: "",
-      cohort: cohortOptions[0].value,
+      cohort: "",
       id: "",
     },
   });

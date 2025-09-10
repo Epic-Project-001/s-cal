@@ -39,18 +39,16 @@ interface DateInputProps {
 export function DateInput({ date, setDate, className }: DateInputProps) {
   const [open, setOpen] = React.useState(false);
   const [month, setMonth] = React.useState<Date | undefined>(date);
-  const [value, setValue] = React.useState(formatDate(date));
 
   return (
     <div className="relative flex gap-2">
       <Input
         id="date"
-        value={value}
+        value={formatDate(date)}
         placeholder="DD/MM/YYYY"
         className={cn("bg-background pr-10", className)}
         onChange={(e) => {
           const date = new Date(e.target.value);
-          setValue(e.target.value);
           if (isValidDate(date)) {
             setDate(date);
             setMonth(date);
@@ -88,7 +86,6 @@ export function DateInput({ date, setDate, className }: DateInputProps) {
             onMonthChange={setMonth}
             onSelect={(date) => {
               setDate(date);
-              setValue(formatDate(date));
               setOpen(false);
             }}
           />

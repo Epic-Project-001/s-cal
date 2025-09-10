@@ -18,7 +18,9 @@ const tableHeaders: string[] = ["Vist name", "Number", "Date", "Visit Window"];
 const formatDate = (date: Date) => format(date, "dd MMM yyyy");
 
 function TableCell({ children }: { children: React.ReactNode }) {
-  return <td className="py-2 text-[#281D1B]">{children}</td>;
+  return (
+    <td className="py-2 text-[#281D1B] dark:text-[#E4DAD7]">{children}</td>
+  );
 }
 
 export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
@@ -34,9 +36,12 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
         <Button
           onClick={onEmail}
           variant="secondary"
-          className="text-[#2E191466] w-[127px]"
+          className="text-[#2E191466] dark:text-[#EBD5D166] w-[127px]"
         >
-          <RiSendPlaneFill size={14} className="text-[#A49896]" />
+          <RiSendPlaneFill
+            size={14}
+            className="text-[#A49896] dark:text-[#EBD5D166]"
+          />
           Email
         </Button>
         <Button variant="destructive" className="w-[127px]" onClick={onPrint}>
@@ -45,20 +50,20 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
         </Button>
       </div>
       <div ref={tableContainerRef} className="overflow-x-auto py-6 lg:py-10">
-        <table className="w-full table-fixed overflow-x-auto border-collapse divide-y divide-[#6E504933]">
+        <table className="w-full table-fixed overflow-x-auto border-collapse divide-y divide-[#6E504933] dark:divide-[#B6979133]">
           <thead>
             <tr>
               {tableHeaders.map((item) => (
                 <th
                   key={item}
-                  className="font-normal py-2 text-left text-[13px] text-[#2E19149E]"
+                  className="font-normal py-2 text-left text-[13px] text-[#2E19149E] dark:text-[#EBD5D19E]"
                 >
                   {item}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#6E504933]">
+          <tbody className="divide-y divide-[#6E504933] dark:divide-[#B6979133]">
             {cohort &&
               form.formState.isSubmitSuccessful &&
               tableData[cohort].map((item, index) => {

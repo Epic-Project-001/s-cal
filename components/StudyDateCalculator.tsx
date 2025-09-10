@@ -19,16 +19,13 @@ import { useFormContext } from "react-hook-form";
 import { CalculatorSchema } from "@/lib/validation";
 import { DateInput } from "./Input/DateInput";
 import { cohortOptions } from "@/lib/data/cohortOptions";
-import { add } from "date-fns";
 
 export default function StudyDateCalculator() {
   const form = useFormContext<CalculatorSchema>();
 
-  const onSubmit = form.handleSubmit((data) => {
-    console.log(data);
-  });
+  const onSubmit = form.handleSubmit(() => {});
 
-  console.log(add(form.watch("date"), { days: 1 }));
+  console.log(form.watch());
 
   return (
     <div className="mx-auto max-w-[431px] px-4 w-full flex my-10 lg:my-20 flex-col items-center">
@@ -56,7 +53,7 @@ export default function StudyDateCalculator() {
           name="cohort"
           render={({ field }) => (
             <FormItem>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select value={field.value} onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger className="w-full bg-[#723C3117] border-none">
                     <SelectValue placeholder="Select cohort" />
@@ -94,7 +91,12 @@ export default function StudyDateCalculator() {
           <Button variant="destructive" type="submit" className="w-full">
             Calculate
           </Button>
-          <Button variant="ghost" className="text-destructive w-full">
+          <Button
+            onClick={() => form.reset({})}
+            variant="ghost"
+            className="text-destructive w-full"
+            type="button"
+          >
             Clear
           </Button>
         </div>
