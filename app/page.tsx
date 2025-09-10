@@ -57,8 +57,10 @@ export default function Home() {
       <Form {...form}>
         <div ref={containerRef} className="flex-1 flex flex-col">
           <Header />
-          <StudyDateCalculator />
-          <ResultsTable onEmail={handleEmail} onPrint={reactToPrint} />
+          <main>
+            <StudyDateCalculator />
+            <ResultsTable onEmail={handleEmail} onPrint={reactToPrint} />
+          </main>
           <Footer />
         </div>
       </Form>
