@@ -1,7 +1,7 @@
 export const tableData: TableData = {
   randomized_intervention: [
     {
-      interval: "Screening/Day 1",
+      interval: "Screening / Day 1",
       planned_visit_interval: 0,
       allowed_interval_visit: "N/A",
     },
