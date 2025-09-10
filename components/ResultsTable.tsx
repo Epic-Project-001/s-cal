@@ -31,7 +31,7 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
   const date = form.watch("date");
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 flex flex-col">
       <div className="flex justify-end gap-2">
         <Button
           onClick={onEmail}
@@ -64,8 +64,7 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
             </tr>
           </thead>
           <tbody className="divide-y divide-[#6E504933] dark:divide-[#B6979133]">
-            {cohort &&
-              form.formState.isSubmitSuccessful &&
+            {form.formState.isSubmitSuccessful &&
               tableData[cohort].map((item, index) => {
                 const visitDate = addDays(date, item.planned_visit_interval);
                 const visitWindow =
@@ -89,6 +88,35 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
           </tbody>
         </table>
       </div>
+      {!form.formState.isSubmitSuccessful && (
+        <div className="flex-1 flex-col items-center justify-center flex gap-3">
+          <svg
+            width="80"
+            height="80"
+            viewBox="0 0 80 80"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="mb-4"
+          >
+            <rect
+              x="12"
+              y="16"
+              width="56"
+              height="48"
+              rx="2"
+              fill="#723C3117"
+            />
+            <rect x="20" y="24" width="40" height="4" rx="1" fill="#723C3133" />
+            <rect x="20" y="32" width="40" height="4" rx="1" fill="#723C3133" />
+            <rect x="20" y="40" width="40" height="4" rx="1" fill="#723C3133" />
+            <rect x="20" y="48" width="40" height="4" rx="1" fill="#723C3133" />
+            <rect x="20" y="56" width="40" height="4" rx="1" fill="#723C3133" />
+          </svg>
+          <p className="text-[#281D1B] dark:text-[#E4DAD7] text-sm">
+            Please select a cohort and date to view the results
+          </p>
+        </div>
+      )}
     </div>
   );
 }
