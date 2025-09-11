@@ -3,105 +3,93 @@
 import { Button } from "./ui/button";
 import { RiPrinterLine, RiSendPlaneFill } from "react-icons/ri";
 import { useRef } from "react";
-import { useReactToPrint } from "react-to-print";
-import html2canvas from "html2canvas";
-import { toast } from "sonner";
+import { tableData } from "@/lib/data/tableData";
+import { CalculatorSchema } from "@/lib/validation";
+import { useFormContext } from "react-hook-form";
+import { addDays, format, subDays } from "date-fns";
+import EmptyState from "./EmptyState";
 
-interface Data {
-  name: string;
-  count: string;
-  date: string;
-  window: string;
+interface ResultTableProps {
+  onPrint: () => void;
+  onEmail: () => void;
 }
 
-interface TableHeader {
-  label: string;
-  key: keyof Data;
+const tableHeaders: string[] = ["Vist name", "Number", "Date", "Visit Window"];
+
+const formatDate = (date: Date) => format(date, "dd MMM yyyy");
+
+function TableCell({ children }: { children: React.ReactNode }) {
+  return (
+    <td className="py-2 pr-2 text-[#281D1B] dark:text-[#E4DAD7]">{children}</td>
+  );
 }
 
-const data: Data[] = Array.from({ length: 10 }, (_, index) => ({
-  name: "Screening",
-  count: `Visit ${index + 1}`,
-  date: "2021-01-01",
-  window: "01 Jan 2025 to 05 Jan 2025",
-}));
-
-const tableHeaders: TableHeader[] = [
-  { label: "Vist name", key: "name" },
-  { label: "Visit", key: "count" },
-  { label: "Date", key: "date" },
-  { label: "Visit Window", key: "window" },
-];
-
-export default function ResultsTable() {
+export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
+  const form = useFormContext<CalculatorSchema>();
   const tableContainerRef = useRef<HTMLTableElement>(null);
 
-  const reactToPrintFn = useReactToPrint({ contentRef: tableContainerRef });
-
-  const handleDownload = async () => {
-    if (!tableContainerRef.current) return;
-    const canvas = await html2canvas(tableContainerRef.current, { scale: 2 });
-    const imageUrl = canvas.toDataURL("image/png");
-    const link = document.createElement("a");
-    link.download = "screenshot.png";
-    link.href = imageUrl;
-    link.click();
-    toast.success("Screenshot downloaded successfully");
-    window.location.href =
-      "mailto:someone@example.com?subject=See attached screenshot";
-  };
+  const cohort = form.watch("cohort") as Cohort;
+  const date = form.watch("date");
 
   return (
-    <div className="flex-1">
-      <div className="flex justify-end gap-2 px-4 lg:px-6 xl:px-15">
+    <div className="flex-1 flex flex-col">
+      <div className="flex justify-end gap-2">
         <Button
-          onClick={handleDownload}
+          onClick={onEmail}
           variant="secondary"
-          className="text-[#2E191466] w-[127px]"
+          className="text-[#2E191466] dark:text-[#EBD5D166] w-[127px]"
         >
-          <RiSendPlaneFill size={14} className="text-[#A49896]" />
+          <RiSendPlaneFill
+            size={14}
+            className="text-[#A49896] dark:text-[#EBD5D166]"
+          />
           Email
         </Button>
-        <Button
-          variant="destructive"
-          className="w-[127px]"
-          onClick={reactToPrintFn}
-        >
+        <Button variant="destructive" className="w-[127px]" onClick={onPrint}>
           <RiPrinterLine size={14} />
           Print
         </Button>
       </div>
-
-      <div
-        ref={tableContainerRef}
-        className="overflow-x-auto px-4 lg:px-6 xl:px-15 py-6 lg:py-10"
-      >
-        <table className="w-full table-fixed overflow-x-auto border-collapse divide-y divide-[#6E504933]">
+      <div ref={tableContainerRef} className="overflow-x-auto py-6 lg:py-10">
+        <table className="w-full table-fixed overflow-x-auto border-collapse divide-y divide-[#6E504933] dark:divide-[#B6979133]">
           <thead>
             <tr>
-              {tableHeaders.map((header) => (
+              {tableHeaders.map((item) => (
                 <th
-                  key={header.key}
-                  className="font-normal py-2 text-left text-[13px] text-[#2E19149E]"
+                  key={item}
+                  className="font-normal pr-2 py-2 text-left text-[13px] text-[#2E19149E] dark:text-[#EBD5D19E]"
                 >
-                  {header.label}
+                  {item}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#6E504933]">
-            {data.map((item, index) => (
-              <tr key={item.name + index}>
-                {tableHeaders.map((header) => (
-                  <td className="py-4 text-[#281D1B]" key={header.key}>
-                    {item[header.key]}
-                  </td>
-                ))}
-              </tr>
-            ))}
+          <tbody className="divide-y divide-[#6E504933] dark:divide-[#B6979133]">
+            {form.formState.isSubmitSuccessful &&
+              tableData[cohort].map((item, index) => {
+                const visitDate = addDays(date, item.planned_visit_interval);
+                const visitWindow =
+                  typeof item.allowed_interval_visit === "number"
+                    ? `${formatDate(
+                        subDays(visitDate, item.allowed_interval_visit)
+                      )} to ${formatDate(
+                        addDays(visitDate, item.allowed_interval_visit)
+                      )}`
+                    : item.allowed_interval_visit;
+
+                return (
+                  <tr key={item.interval}>
+                    <TableCell>{item.interval}</TableCell>
+                    <TableCell>Visit {index + 1}</TableCell>
+                    <TableCell>{`${formatDate(visitDate)}`}</TableCell>
+                    <TableCell>{visitWindow}</TableCell>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>
+      {!form.formState.isSubmitSuccessful && <EmptyState />}
     </div>
   );
 }

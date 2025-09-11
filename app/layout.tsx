@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import ThemeProvider from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 
 const jakartaSans = Plus_Jakarta_Sans({
@@ -21,14 +20,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${jakartaSans.variable} antialiased min-h-screen flex flex-col py-6 xl:py-15`}
-      >
-        <Toaster />
-        <Header />
-        <main className="grow flex flex-col">{children}</main>
-        <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${jakartaSans.variable} antialiased`}>
+        <ThemeProvider>
+          <Toaster />
+
+          <div className="min-h-screen px-4 py-6 lg:py-6 xl:p-15 flex flex-col">
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
