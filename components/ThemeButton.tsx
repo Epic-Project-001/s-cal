@@ -12,7 +12,7 @@ export default function ThemeButton() {
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
       variant="ghost"
       size="icon"
-      className="fixed rounded-full top-6 right-6"
+      className="fixed rounded-full top-6 right-6 xl:top-14 xl:right-14"
       title={theme === "light" ? "Dark mode" : "Light mode"}
     >
       {theme === "light" ? (

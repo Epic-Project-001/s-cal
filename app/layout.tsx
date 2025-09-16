@@ -10,8 +10,8 @@ const jakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Lorem Ipsum",
-  description: "Lorem Ipsum",
+  title: "Entrance - Protocol 221894",
+  description: "Study date Calculator",
 };
 
 export default function RootLayout({
