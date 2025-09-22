@@ -102,10 +102,10 @@ export default function StudyDateCalculator() {
       </form>
 
       {!form.formState.isSubmitted && (
-        <p className="text-sm text-gray-500 text-center mt-4">
+        <p className="text-sm text-gray-500 text-center text-balance mt-4">
           {" "}
-          Please select a date and cohort, and click the calculate button to
-          view the results
+          Please select a date and cohort, and click the{" "}
+          <strong>calculate</strong> button to view the results
         </p>
       )}
     </div>
