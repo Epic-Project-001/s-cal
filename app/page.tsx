@@ -47,8 +47,7 @@ export default function Home() {
     link.href = imageUrl;
     link.click();
     toast.success("Screenshot downloaded successfully");
-    window.location.href =
-      "mailto:someone@example.com?subject=See attached screenshot";
+    window.location.href = "mailto:?subject=See attached screenshot";
   };
 
   return (

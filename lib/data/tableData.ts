@@ -1,7 +1,7 @@
 export const tableData: TableData = {
   randomized_intervention: [
     {
-      interval: "Screening / Day 1",
+      interval: "Day 1",
       planned_visit_interval: 0,
       allowed_interval_visit: "N/A",
     },
@@ -49,84 +49,84 @@ export const tableData: TableData = {
   ],
   ati: [
     {
-      interval: "Week 1",
+      interval: "Week 1A",
       planned_visit_interval: 7,
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 2",
+      interval: "Week 2A",
       planned_visit_interval: 14,
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 3",
+      interval: "Week 3A",
       planned_visit_interval: 21,
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 4",
+      interval: "Week 4A",
       planned_visit_interval: 28,
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 5",
+      interval: "Week 5A",
       planned_visit_interval: 35,
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 6",
+      interval: "Week 6A",
       planned_visit_interval: 42,
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 7",
+      interval: "Week 7A",
       planned_visit_interval: 49,
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 8",
+      interval: "Week 8A",
       planned_visit_interval: 56,
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 9",
+      interval: "Week 9A",
       planned_visit_interval: 63,
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 10",
+      interval: "Week 10A",
       planned_visit_interval: 70,
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 12",
+      interval: "Week 12A",
       planned_visit_interval: 84,
       allowed_interval_visit: 2,
     },
   ],
   follow_up: [
     {
-      interval: "Week 2",
+      interval: "Week 2F",
       planned_visit_interval: 14,
       allowed_interval_visit: 2,
     },
     {
-      interval: "Month 1",
+      interval: "Month 1F",
       planned_visit_interval: 28,
       allowed_interval_visit: 7,
     },
     {
-      interval: "Month 2",
+      interval: "Month 2F",
       planned_visit_interval: 56,
       allowed_interval_visit: 7,
     },
     {
-      interval: "Month 3",
+      interval: "Month 3F",
       planned_visit_interval: 84,
       allowed_interval_visit: 7,
     },
     {
-      interval: "Month 6",
+      interval: "Month 6F",
       planned_visit_interval: 168,
       allowed_interval_visit: 7,
     },
