@@ -7,14 +7,13 @@ import { tableData } from "@/lib/data/tableData";
 import { CalculatorSchema } from "@/lib/validation";
 import { useFormContext } from "react-hook-form";
 import { addDays, format, subDays } from "date-fns";
-import EmptyState from "./EmptyState";
 
 interface ResultTableProps {
   onPrint: () => void;
   onEmail: () => void;
 }
 
-const tableHeaders: string[] = ["Vist name", "Number", "Date", "Visit Window"];
+const tableHeaders: string[] = ["Number", "Visit name", "Date", "Visit Window"];
 
 const formatDate = (date: Date) => format(date, "dd MMM yyyy");
 
@@ -79,8 +78,8 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
 
                 return (
                   <tr key={item.interval}>
-                    <TableCell>{item.interval}</TableCell>
                     <TableCell>Visit {index + 1}</TableCell>
+                    <TableCell>{item.interval}</TableCell>
                     <TableCell>{`${formatDate(visitDate)}`}</TableCell>
                     <TableCell>{visitWindow}</TableCell>
                   </tr>
@@ -89,7 +88,6 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
           </tbody>
         </table>
       </div>
-      {!form.formState.isSubmitSuccessful && <EmptyState />}
     </div>
   );
 }
