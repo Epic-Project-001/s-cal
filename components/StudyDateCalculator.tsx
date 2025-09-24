@@ -27,7 +27,8 @@ export default function StudyDateCalculator() {
   return (
     <div className="mx-auto max-w-[431px] px-4 w-full flex my-10 lg:my-20 flex-col items-center">
       <h1 className="font-bold text-[28px]">Study date calculator</h1>
-      <p>Enter the starting date and study cohort below</p>
+      <p className="text-sm text-gray-500 text-center text-balance mt-4">Select the study phase and enter the Day 1 date for that phase. {" "}
+          This will generate a list of dates for <strong>future visits</strong> factoring in visit windows.</p>
       <form onSubmit={onSubmit} className="space-y-4 w-full mt-8">
         <FormField
           control={form.control}
@@ -103,9 +104,7 @@ export default function StudyDateCalculator() {
 
       {!form.formState.isSubmitted && (
         <p className="text-sm text-gray-500 text-center text-balance mt-4">
-          {" "}
-          Please select a date and cohort, and click the{" "}
-          <strong>calculate</strong> button to view the results
+          
         </p>
       )}
     </div>
