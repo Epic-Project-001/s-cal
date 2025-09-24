@@ -15,6 +15,11 @@ interface ResultTableProps {
 
 const tableHeaders: string[] = ["Number", "Visit name", "Date", "Visit Window"];
 
+const parseLocalDate = (input: string) => {
+  const [year, month, day] = input.split("-").map(Number);
+  return new Date(year, month - 1, day); // local midnight, not UTC
+};
+
 const formatDate = (date: Date) => format(date, "dd MMM yyyy");
 
 function TableCell({ children }: { children: React.ReactNode }) {
@@ -66,7 +71,11 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
           <tbody className="divide-y divide-[#6E504933] dark:divide-[#B6979133]">
             {form.formState.isSubmitSuccessful &&
               tableData[cohort].map((item, index) => {
-                const visitDate = addDays(date, item.planned_visit_interval);
+                const parsedDate = parseLocalDate(date);
+                const visitDate = addDays(
+                  parsedDate,
+                  item.planned_visit_interval
+                );
                 const visitWindow =
                   typeof item.allowed_interval_visit === "number"
                     ? `${formatDate(
