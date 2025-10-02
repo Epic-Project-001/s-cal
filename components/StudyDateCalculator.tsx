@@ -89,8 +89,8 @@ export default function StudyDateCalculator({
                     <Input
                       {...field}
                       type="date"
-                      placeholder="Date"
-                      className="bg-[#723C3117] border-none block"
+                      placeholder="MM/DD/YYYY"
+                      className="bg-[#723C3117] border-none block leading-7"
                     />
                   </FormControl>
                   <FormMessage />
