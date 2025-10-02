@@ -5,7 +5,7 @@ import ResultsTable from "@/components/ResultsTable";
 import { useReactToPrint } from "react-to-print";
 import html2canvas from "html2canvas";
 import { toast } from "sonner";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +15,11 @@ import { Form } from "@/components/ui/form";
 import ThemeButton from "@/components/ThemeButton";
 
 export default function Home() {
+  const [submittedData, setSubmittedData] = useState<{
+    cohort: Cohort;
+    date: string;
+    id?: string;
+  } | null>(null);
   const form = useForm<CalculatorSchema>({
     resolver: zodResolver(calculatorSchema),
     defaultValues: {
@@ -57,8 +62,12 @@ export default function Home() {
         <div ref={containerRef} className="flex-1 flex flex-col">
           <Header />
           <main>
-            <StudyDateCalculator />
-            <ResultsTable onEmail={handleEmail} onPrint={reactToPrint} />
+            <StudyDateCalculator setData={setSubmittedData} />
+            <ResultsTable
+              onEmail={handleEmail}
+              onPrint={reactToPrint}
+              data={submittedData}
+            />
           </main>
           <Footer />
         </div>
