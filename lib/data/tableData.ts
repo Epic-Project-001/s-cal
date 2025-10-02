@@ -49,6 +49,11 @@ export const tableData: TableData = {
   ],
   ati: [
     {
+      interval: "Day 1A",
+      planned_visit_interval: 0,
+      allowed_interval_visit: "N/A",
+    },
+    {
       interval: "Week 1A",
       planned_visit_interval: 7,
       allowed_interval_visit: 2,
@@ -89,11 +94,6 @@ export const tableData: TableData = {
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 9A",
-      planned_visit_interval: 63,
-      allowed_interval_visit: 2,
-    },
-    {
       interval: "Week 10A",
       planned_visit_interval: 70,
       allowed_interval_visit: 2,
@@ -105,6 +105,11 @@ export const tableData: TableData = {
     },
   ],
   follow_up: [
+    {
+      interval: "Day 1F",
+      planned_visit_interval: 0,
+      allowed_interval_visit: "N/A",
+    },
     {
       interval: "Week 2F",
       planned_visit_interval: 14,
