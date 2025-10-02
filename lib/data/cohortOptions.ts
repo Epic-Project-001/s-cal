@@ -1,5 +1,5 @@
 export const cohortOptions: { label: string; value: Cohort }[] = [
-  { label: "Randomized Intervention", value: "randomized_intervention" },
-  { label: "ATI", value: "ati" },
-  { label: "Follow Up", value: "follow_up" },
+  { label: "Step 1: Randomized Intervention", value: "randomized_intervention" },
+  { label: "Step 2: ATI", value: "ati" },
+  { label: "Step 3: Follow Up", value: "follow_up" },
 ];

@@ -13,8 +13,12 @@ interface ResultTableProps {
   onEmail: () => void;
 }
 
-const tableHeaders: string[] = ["Number", "Visit name", "Date", "Visit Window"];
-
+const tableHeaders: string[] = [
+  // "Number",
+  "Visit name",
+  "Date",
+  "Visit Window",
+];
 const parseLocalDate = (input: string) => {
   const [year, month, day] = input.split("-").map(Number);
   return new Date(year, month - 1, day); // local midnight, not UTC
@@ -87,7 +91,7 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
 
                 return (
                   <tr key={item.interval}>
-                    <TableCell>Visit {index + 1}</TableCell>
+                    {/* <TableCell>Visit {index + 1}</TableCell> */}
                     <TableCell>{item.interval}</TableCell>
                     <TableCell>{`${formatDate(visitDate)}`}</TableCell>
                     <TableCell>{visitWindow}</TableCell>

@@ -94,11 +94,6 @@ export const tableData: TableData = {
       allowed_interval_visit: 2,
     },
     {
-      interval: "Week 9A",
-      planned_visit_interval: 63,
-      allowed_interval_visit: 2,
-    },
-    {
       interval: "Week 10A",
       planned_visit_interval: 70,
       allowed_interval_visit: 2,
