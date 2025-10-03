@@ -2,13 +2,12 @@
 
 import { Button } from "./ui/button";
 import { RiPrinterLine, RiSendPlaneFill } from "react-icons/ri";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { tableData } from "@/lib/data/tableData";
-import { CalculatorSchema } from "@/lib/validation";
-import { useFormContext } from "react-hook-form";
 import { addDays, format, subDays } from "date-fns";
 
 interface ResultTableProps {
+  data: { cohort: Cohort; date: string } | null;
   onPrint: () => void;
   onEmail: () => void;
 }
@@ -32,12 +31,22 @@ function TableCell({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
-  const form = useFormContext<CalculatorSchema>();
+export default function ResultsTable({
+  onPrint,
+  onEmail,
+  data,
+}: ResultTableProps) {
   const tableContainerRef = useRef<HTMLTableElement>(null);
 
-  const cohort = form.watch("cohort") as Cohort;
-  const date = form.watch("date");
+  useEffect(() => {
+    if (
+      tableContainerRef.current &&
+      data &&
+      tableData[data.cohort]?.length > 0
+    ) {
+      tableContainerRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [data]);
 
   return (
     <div className="flex-1 flex flex-col">
@@ -73,9 +82,9 @@ export default function ResultsTable({ onPrint, onEmail }: ResultTableProps) {
             </tr>
           </thead>
           <tbody className="divide-y divide-[#6E504933] dark:divide-[#B6979133]">
-            {form.formState.isSubmitSuccessful &&
-              tableData[cohort].map((item, index) => {
-                const parsedDate = parseLocalDate(date);
+            {data &&
+              tableData[data.cohort].map((item) => {
+                const parsedDate = parseLocalDate(data.date);
                 const visitDate = addDays(
                   parsedDate,
                   item.planned_visit_interval
