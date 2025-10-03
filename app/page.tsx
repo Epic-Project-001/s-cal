@@ -3,7 +3,7 @@
 import StudyDateCalculator from "@/components/StudyDateCalculator";
 import ResultsTable from "@/components/ResultsTable";
 import { useReactToPrint } from "react-to-print";
-import html2canvas from "html2canvas";
+import html2canvas from "html2canvas-pro";
 import { toast } from "sonner";
 import { useRef, useState } from "react";
 import Header from "@/components/Header";
@@ -44,6 +44,12 @@ export default function Home() {
   });
 
   const handleEmail = async () => {
+    if (!submittedData) {
+      toast.error(
+        "Please select a date and cohort and click the calculate button"
+      );
+      return;
+    }
     if (!containerRef.current) return;
     const canvas = await html2canvas(containerRef.current, { scale: 2 });
     const imageUrl = canvas.toDataURL("image/png");
@@ -52,7 +58,7 @@ export default function Home() {
     link.href = imageUrl;
     link.click();
     toast.success("Screenshot downloaded successfully");
-    window.location.href = "mailto:?subject=See attached screenshot";
+    window.location.href = `mailto:?subject=${submittedData?.cohort}_${submittedData?.date}`;
   };
 
   return (
@@ -65,7 +71,15 @@ export default function Home() {
             <StudyDateCalculator setData={setSubmittedData} />
             <ResultsTable
               onEmail={handleEmail}
-              onPrint={reactToPrint}
+              onPrint={() => {
+                if (!submittedData) {
+                  toast.error(
+                    "Please select a date and cohort and click the calculate button"
+                  );
+                  return;
+                }
+                reactToPrint();
+              }}
               data={submittedData}
             />
           </main>
